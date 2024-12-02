@@ -27,32 +27,33 @@ func writeFile(result: Int) {
         print(error.localizedDescription)
     }
 }
+@MainActor
+func day1() {
+    let lines = readFile().components(separatedBy: "\n")
 
-let lines = readFile().components(separatedBy: "\n")
+    var column1: [Int] = []
+    var column2: [Int] = []
 
-var column1: [Int] = []
-var column2: [Int] = []
-
-for line in lines {
-    let columns = line.components(separatedBy: "   ")
-    if let first = Int(columns[0]), let second = Int(columns[1]) {
-        column1.append(first)
-        column2.append(second)
+    for line in lines {
+        let columns = line.components(separatedBy: "   ")
+        if let first = Int(columns[0]), let second = Int(columns[1]) {
+            column1.append(first)
+            column2.append(second)
+        }
     }
+
+    let sortedColumn1 = column1.sorted()
+    let sortedColumn2 = column2.sorted()
+
+    let differences = zip(sortedColumn1, sortedColumn2).map { abs($0 - $1) }
+    let _ = differences.reduce(0, +)
+
+    var occurences: [Int] = []
+
+    for number in column1 {
+        let count = column2.filter { $0 == number }.count * number
+        occurences.append(count)
+    }
+
+    print(occurences.reduce(0, +))
 }
-
-let sortedColumn1 = column1.sorted()
-let sortedColumn2 = column2.sorted()
-
-let differences = zip(sortedColumn1, sortedColumn2).map { abs($0 - $1) }
-let total = differences.reduce(0, +)
-
-var occurences: [Int] = []
-
-for number in column1 {
-    let count = column2.filter { $0 == number }.count * number
-    occurences.append(count)
-}
-
-print(occurences.reduce(0, +))
-writeFile(result: total)
