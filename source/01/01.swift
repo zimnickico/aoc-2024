@@ -1,7 +1,8 @@
 import Foundation
 
 let fileName = "input.txt"
-let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath + "/input")
+let currentDirectoryURL = URL(
+    fileURLWithPath: FileManager.default.currentDirectoryPath + "/../../data/01")
 let fileURL = currentDirectoryURL.appendingPathComponent(fileName)
 
 func readFile() -> String {
