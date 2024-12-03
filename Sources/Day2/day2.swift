@@ -8,8 +8,10 @@ func day2() {
 
     for line in lines {
         levels = line.split(separator: " ").compactMap { Int($0) }
-        safe.append(isSafe(levels: levels))
-        print("\(line): \(isSafe(levels: levels))")
+        let safeLine = isSafeRemoved(sequence: levels)
+        safe.append(safeLine)
+        print("\(safe.count)")
+        print("\(line): \(isSafeRemoved(sequence: levels))")
     }
 
     func isSafe(levels: [Int]) -> Bool {
@@ -36,5 +38,18 @@ func day2() {
         return true
     }
 
-    print(safe.filter { $0 == true }.count)
+    func isSafeRemoved(sequence: [Int]) -> Bool {
+        for sequence in 0..<sequence.count {
+            var removedSequence = levels
+            removedSequence.remove(at: sequence)
+            if isSafe(levels: removedSequence) {
+                return true
+            }
+        }
+        return false
+    }
+
+    let safeCount = safe.filter { $0 }.count
+    print("\(safeCount)")
+
 }
