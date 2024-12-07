@@ -5,7 +5,7 @@ func day7() {
     var total = 0
 
     func generateOperators(_ count: Int) -> [[String]] {
-        let ops = ["+", "*"]
+        let ops = ["+", "*", "||"]
         if count == 0 {
             return [[]]
         } else {
@@ -23,6 +23,8 @@ func day7() {
                 result += numbers[op + 1]
             } else if ops[op] == "*" {
                 result *= numbers[op + 1]
+            } else if ops[op] == "||" {
+                result = Int("\(result)\(numbers[op + 1])")!
             }
         }
         return result
