@@ -28,19 +28,15 @@ func day8() {
                 let diff = (coords[j].0 - coords[i].0, coords[j].1 - coords[i].1)
 
                 for (_idx, _dir) in [(i, -1), (j, 1)] {
-                    let pos = (
-                        coords[_idx].0 + diff.0 * _dir,
-                        coords[_idx].1 + diff.1 * _dir
-                    )
-
-                    if pos.0 >= 0 && pos.0 < rows && pos.1 >= 0 && pos.1 < cols {
+                    var pos = coords[_idx]
+                    while pos.0 >= 0 && pos.0 < rows && pos.1 >= 0 && pos.1 < cols {
                         antinodes.insert(Antinode(x: pos.0, y: pos.1))
+                        pos = (pos.0 + diff.0 * _dir, pos.1 + diff.1 * _dir)
                     }
                 }
             }
         }
     }
-
     print(antinodes.count)
 
 }
